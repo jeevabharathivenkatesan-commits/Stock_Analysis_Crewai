@@ -1,5 +1,5 @@
 from crewai import Task
-from agent.trader_agent import trader_agent
+from trader_agent import trader_agent
 
 trader_task=Task(
 description=(
