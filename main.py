@@ -4,30 +4,46 @@ from crew import stock_crew
 
 load_dotenv()
 
+# -----------------------------
+# PAGE CONFIG
+# -----------------------------
 st.set_page_config(
     page_title="AI Stock Analyzer",
     page_icon="📈",
     layout="wide"
 )
 
+# -----------------------------
+# HEADER
+# -----------------------------
 st.title("📈 AI Stock Analysis Dashboard")
 st.caption("Powered by CrewAI + Gemini")
 
+# -----------------------------
+# INPUT
+# -----------------------------
 stock = st.text_input(
     "Enter Stock Ticker",
     placeholder="AAPL, TSLA, NVDA, MSFT"
 )
 
+# -----------------------------
+# ANALYZE BUTTON
+# -----------------------------
 if st.button("Analyze", use_container_width=True):
 
-    if stock == "":
+    if not stock:
         st.warning("Please enter a stock ticker.")
-    else:
+        st.stop()
 
-        with st.spinner("Fetching live market data..."):
+    try:
+
+        with st.spinner("Fetching market data and generating analysis..."):
 
             result = stock_crew.kickoff(
-                inputs={"stock": stock.upper()}
+                inputs={
+                    "stock": stock.upper()
+                }
             )
 
         st.success("Analysis Completed ✅")
@@ -36,13 +52,25 @@ if st.button("Analyze", use_container_width=True):
 
         st.subheader(f"📊 Analysis for {stock.upper()}")
 
-        st.markdown(
-            f"""
-<div style='background-color:#F8F9FA;padding:20px;border-radius:12px;border:1px solid #E5E5E5;'>
+        # -----------------------------
+        # DISPLAY REPORT
+        # -----------------------------
+        with st.container(border=True):
 
-{result.raw}
+            st.markdown(result.raw)
 
-</div>
-""",
-            unsafe_allow_html=True
-        )
+        # -----------------------------
+        # DEBUG SECTION (Optional)
+        # -----------------------------
+        with st.expander("🔍 Debug Output"):
+
+            st.write("Result Type:")
+            st.write(type(result.raw))
+
+            st.write("Raw Output:")
+            st.code(result.raw)
+
+    except Exception as e:
+
+        st.error("Error while generating analysis")
+        st.exception(e)
