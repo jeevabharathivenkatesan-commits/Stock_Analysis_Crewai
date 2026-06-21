@@ -1,5 +1,5 @@
 from crewai import Agent,LLM
-from tool.stock_research_tool import get_stock_price
+from stock_research_tool import get_stock_price
 
 llm =LLM(
     model="google/gemini-2.5-flash",
