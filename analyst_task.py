@@ -1,5 +1,5 @@
 from crewai import Task
-from agent.analyst_agent import analyst_agent
+from analyst_agent import analyst_agent
 
 analyst_task=Task(
     description="Analyze the recent performance of the stock: {stock}. Use the live stock information tool to retrieve "
