@@ -4,32 +4,24 @@ from crew import stock_crew
 
 load_dotenv()
 
-# -----------------------------
 # PAGE CONFIG
-# -----------------------------
 st.set_page_config(
     page_title="AI Stock Analyzer",
     page_icon="📈",
-    layout="wide"
+    layout="centered"
 )
 
-# -----------------------------
 # HEADER
-# -----------------------------
 st.title("📈 AI Stock Analysis Dashboard")
 st.caption("Powered by CrewAI + Gemini")
 
-# -----------------------------
 # INPUT
-# -----------------------------
 stock = st.text_input(
     "Enter Stock Ticker",
     placeholder="AAPL, TSLA, NVDA, MSFT"
 )
 
-# -----------------------------
 # ANALYZE BUTTON
-# -----------------------------
 if st.button("Analyze", use_container_width=True):
 
     if not stock:
@@ -52,16 +44,13 @@ if st.button("Analyze", use_container_width=True):
 
         st.subheader(f"📊 Analysis for {stock.upper()}")
 
-        # -----------------------------
         # DISPLAY REPORT
-        # -----------------------------
         with st.container(border=True):
 
             st.markdown(result.raw)
 
-        # -----------------------------
+    
         # DEBUG SECTION (Optional)
-        # -----------------------------
         with st.expander("🔍 Debug Output"):
 
             st.write("Result Type:")
