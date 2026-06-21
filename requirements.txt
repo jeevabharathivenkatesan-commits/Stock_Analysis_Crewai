@@ -1,0 +1,6 @@
+crewai
+crewai-tools
+yfinance
+python-dotenv
+google-genai
+streamlit
